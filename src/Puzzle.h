@@ -15,11 +15,13 @@
 #include <cmath>
 
 typedef int Type;
+
 typedef std::array<Type,4> Piece;
 typedef std::multiset<Piece> Pieces;
-typedef std::pair<Piece,int> OrientedPiece;
-typedef std::vector<Type> Boundary;
-typedef std::vector<std::vector<OrientedPiece>> Solution;
+
+typedef std::array<Type, 2> UpperCorner;
+
+typedef std::vector<std::vector<Piece>> Solution;
 
 class Puzzle {
 public:
@@ -35,11 +37,13 @@ private:
 
 	size_t solveNext_(
 		const size_t nextPosition,
-		Pieces availablePieces);
+		const Pieces& availablePieces);
 
-	std::vector<OrientedPiece> findCandidates_(
-		const Boundary type,
+	Pieces findCandidates_(
+		const UpperCorner corner,
 		const Pieces& availablePieces) const;
+
+	static Piece rotate_(const Piece& in);
 };
 
 #endif /* PUZZLE_H_ */
