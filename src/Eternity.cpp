@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-#include "Puzzle.h"
+#include "core/Puzzle.h"
 
 using namespace std;
 

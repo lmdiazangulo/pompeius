@@ -13,6 +13,7 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <fstream>
 
 typedef int Type;
 
@@ -29,6 +30,8 @@ public:
     virtual ~Puzzle();
 
     void solve();
+
+	bool isSolved() const;
 private:
     std::string filename_;
     std::pair<std::size_t,std::size_t> dimensions_;
@@ -37,13 +40,30 @@ private:
 
 	size_t solveNext_(
 		const size_t nextPosition,
-		const Pieces& availablePieces);
+		Pieces availablePieces);
 
 	Pieces findCandidates_(
 		const UpperCorner corner,
+		const size_t position,
 		const Pieces& availablePieces) const;
 
-	static Piece rotate_(const Piece& in);
+	static Piece rotate_(const Piece& in) {
+		Piece res;
+		for (size_t s = 0; s < 4; s++) {
+			res[(s + 1) % 4] = in[s];
+		}
+		return res;
+	}
+
+	static void removeFrom_(Pieces& pieces, Piece toRemove) {
+		for (size_t i = 0; i < 4; i++) {
+			toRemove = rotate_(toRemove);
+			Pieces::iterator it = pieces.find(toRemove);
+			if (it != pieces.end()) {
+				pieces.erase(it);
+			}
+		}
+	}
 };
 
 #endif /* PUZZLE_H_ */
