@@ -11,9 +11,11 @@
 #include <array>
 #include <set>
 #include <vector>
+#include <map>
 #include <algorithm>
 #include <cmath>
 #include <fstream>
+#include <iostream>
 
 typedef int Type;
 
@@ -30,15 +32,18 @@ public:
     virtual ~Puzzle();
 
     void solve();
-
 	bool isSolved() const;
+	
+	void write(const std::string surname = "") const;
+
 private:
     std::string filename_;
     std::pair<std::size_t,std::size_t> dimensions_;
-    std::vector<Piece> originalPieces_;
+    std::map<Piece, size_t> originalPieces_;
 	Solution solution_;
+	size_t maxSolution_;
 
-	size_t solveNext_(
+	bool solveNext_(
 		const size_t nextPosition,
 		Pieces availablePieces);
 
@@ -62,6 +67,15 @@ private:
 			if (it != pieces.end()) {
 				pieces.erase(it);
 			}
+		}
+	}
+
+	static void addTo_(Pieces& pieces, Piece rhs) {
+		pieces.insert(rhs);
+		Piece rotatedPiece = rhs;
+		for (size_t j = 1; j < 4; j++) {
+			rotatedPiece = rotate_(rotatedPiece);
+			pieces.insert(rotatedPiece);
 		}
 	}
 };

@@ -22,6 +22,27 @@ TEST(Puzzle, solve4x4) {
 	EXPECT_TRUE(puzzle.isSolved());
 }
 
+TEST(Puzzle, solveAndWrite4x4) {
+	Puzzle puzzle("data/4x4.txt");
+	puzzle.solve();
+	puzzle.write("cooked");
+}
+
+TEST(Puzzle, solve5x5) {
+	Puzzle puzzle("data/5x5.txt");
+	EXPECT_FALSE(puzzle.isSolved());
+	puzzle.solve();
+	EXPECT_TRUE(puzzle.isSolved());
+}
+
+TEST(Puzzle, solve8x8) {
+	Puzzle puzzle("data/8x8.txt");
+	EXPECT_FALSE(puzzle.isSolved());
+	puzzle.solve();
+	EXPECT_TRUE(puzzle.isSolved());
+}
+
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
