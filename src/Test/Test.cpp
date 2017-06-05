@@ -25,7 +25,7 @@ TEST(Puzzle, solve4x4) {
 TEST(Puzzle, solveAndWrite4x4) {
 	Puzzle puzzle("data/4x4.txt");
 	puzzle.solve();
-	puzzle.write("cooked");
+	puzzle.write("_cooked");
 }
 
 TEST(Puzzle, solve5x5) {
@@ -35,11 +35,16 @@ TEST(Puzzle, solve5x5) {
 	EXPECT_TRUE(puzzle.isSolved());
 }
 
-TEST(Puzzle, solve8x8) {
-	Puzzle puzzle("data/8x8.txt");
-	EXPECT_FALSE(puzzle.isSolved());
+TEST(Puzzle, solveAndWrite5x5) {
+	Puzzle puzzle("data/5x5.txt");
 	puzzle.solve();
-	EXPECT_TRUE(puzzle.isSolved());
+	puzzle.write("_cooked");
+}
+
+TEST(Puzzle, solveAndWrite8x8) {
+	Puzzle puzzle("data/8x8.txt");
+	puzzle.solve();
+	puzzle.write("_cooked");
 }
 
 
