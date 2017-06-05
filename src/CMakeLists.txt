@@ -10,6 +10,22 @@ file(GLOB eternity_src
 	"./core/*.cpp"
 )
 
+if (CMAKE_COMPILER_IS_GNUCXX)
+    include(CheckCXXCompilerFlag)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+
+    check_cxx_compiler_flag("-std=c++11" compiler_supports_cxx11)
+    check_cxx_compiler_flag("-std=c++0x" compiler_supports_cxx0X)
+    if(compiler_supports_cxx11)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    elseif(compiler_supports_cxx0X)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+    else()
+        message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. "
+                            "Please use a different C++ compiler.")
+    endif()
+endif()
+
 ADD_EXECUTABLE(Eternity ${eternity_src})
 
 OPTION(RUN_TESTS "Compile tests" OFF)

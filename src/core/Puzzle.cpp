@@ -109,7 +109,7 @@ bool Puzzle::solveNext_(
 
 	if (position+1 > maxSolution_+1) {
 		maxSolution_ = position+1;
-		std::cout << " " << maxSolution_;
+		std::cout << " " << maxSolution_ << std::flush;
 	}
 	
 	const size_t x = position % dimensions_.first;
